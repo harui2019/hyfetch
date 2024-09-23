@@ -9,8 +9,8 @@ def detect(name: str) -> AsciiArt | None:
         return None
     name = name.lower()
     if name.startswith('adélie') or name.startswith('adelie'):
-        from .adélie import adélie
-        return adélie
+        from .adelie import adelie
+        return adelie
     
     if name.startswith('aix'):
         from .aix import aix
@@ -304,6 +304,10 @@ def detect(name: str) -> AsciiArt | None:
         from .chapeau import chapeau
         return chapeau
     
+    if name.startswith('chimera'):
+        from .chimera import chimera
+        return chimera
+    
     if name.startswith('chonkysealos'):
         from .chonkysealos import chonkysealos
         return chonkysealos
@@ -336,7 +340,7 @@ def detect(name: str) -> AsciiArt | None:
         from .condres import condres
         return condres
     
-    if name.startswith('container linux by coreos') or name.startswith('container_linux'):
+    if name.startswith('container linux by coreos') or name.startswith('container_linux') or name == 'fedora coreos' or name.startswith('coreos'):
         from .container_linux_by_coreos import container_linux_by_coreos
         return container_linux_by_coreos
     
@@ -476,6 +480,10 @@ def detect(name: str) -> AsciiArt | None:
         from .evolutionos import evolutionos
         return evolutionos
     
+    if name.startswith('eweos'):
+        from .eweos import eweos
+        return eweos
+    
     if name.startswith('exherbo'):
         from .exherbo import exherbo
         return exherbo
@@ -487,6 +495,22 @@ def detect(name: str) -> AsciiArt | None:
     if name.startswith('fedora_old') or name.startswith('rfremix'):
         from .fedora_old import fedora_old
         return fedora_old
+    
+    if name == 'fedora_unicode':
+        from .fedora_unicode import fedora_unicode
+        return fedora_unicode
+    
+    if name == 'fedora silverblue' or name.startswith('silverblue'):
+        from .fedora_silverblue import fedora_silverblue
+        return fedora_silverblue
+    
+    if name.startswith('fedora kinoite') or name.startswith('kinoite'):
+        from .fedora_kinoite import fedora_kinoite
+        return fedora_kinoite
+    
+    if name.startswith('fedora sericea') or name.startswith('sericea'):
+        from .fedora_sericea import fedora_sericea
+        return fedora_sericea
     
     if name.startswith('fedora'):
         from .fedora import fedora
@@ -723,6 +747,10 @@ def detect(name: str) -> AsciiArt | None:
     if name.startswith('lunar'):
         from .lunar import lunar
         return lunar
+    
+    if name.startswith('macaronios') or name.startswith('macaroni os'):
+        from .macaronios import macaronios
+        return macaronios
     
     if name == 'mac"*"_small':
         from .mac_small import mac_small
@@ -1451,6 +1479,10 @@ def detect(name: str) -> AsciiArt | None:
     if name.startswith('xenia'):
         from .xenia import xenia
         return xenia
+    
+    if name.startswith('tatra'):
+        from .tatra import tatra
+        return tatra
     
     if name.startswith('zorin'):
         from .zorin import zorin
