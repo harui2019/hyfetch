@@ -245,7 +245,6 @@ usr/bin/mkpasswd.exe
 usr/bin/mknod.exe
 usr/bin/mkgroup.exe
 usr/bin/mkfifo.exe
-usr/bin/mkdir.exe
 usr/bin/mintty.exe
 usr/bin/mintheme
 usr/bin/minidumper.exe

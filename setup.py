@@ -6,8 +6,10 @@ from setuptools import setup, find_namespace_packages
 HERE = Path(__file__).parent
 
 # Load version without importing it (see issue #192 if you are confused)
-for l in (HERE / 'hyfetch' / '__version__.py').read_text().strip().splitlines():
-    exec(l)
+VERSION = [l for l in (HERE / "Cargo.toml").read_text('utf-8').splitlines() if l.startswith("version = ")]
+if len(VERSION) != 1:
+    raise ValueError(f"Cannot determine version from Cargo.toml: {VERSION}")
+VERSION = VERSION[0].split('"')[1]
 
 # The text of the README file
 README = (HERE / "README.md").read_text('utf-8')
@@ -32,6 +34,7 @@ setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     packages=find_namespace_packages(exclude=("tools", "tools.*")),
     package_data={'hyfetch': ['hyfetch/*']},
@@ -46,7 +49,9 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "hyfetch=hyfetch.main:run",
+            "hyfetch.v1=hyfetch.__main__:run_py",
+            "hyfetch.rs=hyfetch.__main__:run_rust",
+            "hyfetch=hyfetch.__main__:run_rust",
         ]
     },
     scripts=['hyfetch/scripts/neowofetch']

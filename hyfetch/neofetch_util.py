@@ -129,7 +129,16 @@ class ColorAlignment:
 
     @classmethod
     def from_dict(cls, d: dict):
-        return from_dict(cls, d)
+        ca = from_dict(cls, d)
+        # Backward compatibility
+        if type(ca.custom_colors) is not dict:
+            if type(ca.custom_colors) is list:
+                ca.custom_colors = {i + 1: v for i, v in enumerate(ca.custom_colors)}
+            else:
+                ca.custom_colors = {}
+        # Fixup: Keys must json serialize as str, so we convert them back to int.
+        ca.custom_colors = {int(k): v for k, v in ca.custom_colors.items()}
+        return ca
 
     def recolor_ascii(self, asc: str, preset: ColorProfile) -> str:
         """
@@ -254,6 +263,7 @@ def run_neofetch_cmd(args: str, pipe: bool = False) -> str | None:
 
         full_cmd = [ensure_git_bash(), cmd, *shlex.split(args)]
 
+    full_cmd = [str(c) for c in full_cmd]
     if pipe:
         return check_output(full_cmd).decode().strip()
     else:
@@ -323,7 +333,7 @@ def run_qwqfetch(asc: str, args: str = ''):
         import qwqfetch
         # distro_detector only return a bash variable
         # so we use qwqfetch builtin distro detector
-        print(qwqfetch.get_ascres(asc))  
+        print(qwqfetch.get_ascres(asc))
     except ImportError as e:  # module not found etc
         print("qwqfetch is not installed. Install it by executing:")  # use print to output hint directly
         print("pip install git+https://github.com/nexplorer-3e/qwqfetch")  # TODO: public repo
@@ -369,19 +379,22 @@ def run_fastfetch(asc: str, args: str = '', legacy: bool = False):
     """
     # Find fastfetch binary
     ff_path = fastfetch_path()
-    
+
     if not ff_path:
         printc("&cError: fastfetch binary is not found. Please install fastfetch first.")
         exit(127)
-    
+
     # Write temp file
     with TemporaryDirectory() as tmp_dir:
         tmp_dir = Path(tmp_dir)
         path = tmp_dir / 'ascii.txt'
         path.write_text(asc, 'utf-8')
 
+        os.environ['FFTS_IGNORE_PARENT'] = '1'
+
         # Call fastfetch with the temp file
-        proc = subprocess.run([ff_path, '--raw' if legacy else '--file-raw', path.absolute(), *shlex.split(args)])
+        proc = subprocess.run([str(ff_path), '--raw' if legacy else '--file-raw',
+                               str(path.absolute()), *shlex.split(args)])
         if proc.returncode == 144:
             printc("&6Error code 144 detected: Please upgrade fastfetch to >=1.8.0 or use the 'fastfetch-old' backend")
 

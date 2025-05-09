@@ -16,15 +16,16 @@ This repo also serves as an updated version of the original `neofetch` since the
 
 ## Installation
 
-### Method 1: Install using Python pip (Recommended)
+### Method 1: Install using pip (Recommended)
 
-Install Python >= 3.7 first. Then, just do:
+Even though hyfetch has been rewritten in Rust since 2.0.0, we also published PyPI packages with prebuilt rust binaries to allow seamless transition from the Python version. You can install the rust binaries using pip:
 
 ```sh
+pip install wheel
 pip install -U hyfetch
-# or
-pipx install hyfetch
 ```
+
+If a rust binary is not available for your platform (e.g. riscv64), it will automatically fall back to the v1.99.0 Python version.
 
 ### Method 2: Install using system package manager
 
@@ -36,24 +37,26 @@ Currently, these distributions have existing packages for HyFetch:
 * Nix: `nix-env -i hyfetch` (Thanks to [@YisuiDenghua](https://github.com/YisuiDenghua))
 * Nix Profile: `nix profile install nixpkgs#hyfetch`
 * Guix: `guix install hyfetch` (Thanks to [@WammKD](https://github.com/WammKD))
-* Slackware: `sbopkg -b hyfetch` [Slackbuild](https://slackbuilds.org/repository/15.0/desktop/hyfetch/?search=hyfetch) (Thanks to [@bittin](https://github.com/bittin) and Urchlay)
-* Homebrew: `brew install hyfetch` (Thanks to [@BKasin](https://github.com/BKasin) and [@osalbahr](https://github.com/osalbahr))
-* openSUSE Tumbleweed: `zypper in python311-hyfetch` (Thanks to [@BKasin](https://github.com/BKasin))
-* Gentoo: `emerge --ask app-misc/hyfetch` (Thanks to [@BKasin](https://github.com/BKasin))
-* Debian and Ubuntu `apt install hyfetch` (for Debian flavor >= [Trixie](https://packages.debian.org/trixie/hyfetch), Ubuntu flavor >= [Noble](https://packages.ubuntu.com/noble/hyfetch)) (Thanks to [@BKasin](https://github.com/BKasin))
+* Slackware: `sbopkg -b hyfetch` [Slackbuild](https://slackbuilds.org/repository/15.0/desktop/hyfetch/?search=hyfetch) (Thanks to [@bittin](https://github.com/bittin) , willysr (https://github.com/willysr), jebrhansen and Urchlay)
+* Homebrew: `brew install hyfetch` (Thanks to [@catumin](https://github.com/catumin) and [@osalbahr](https://github.com/osalbahr))
+* openSUSE Tumbleweed: `zypper in python311-hyfetch` (Thanks to [@catumin](https://github.com/catumin))
+* Gentoo: `emerge --ask app-misc/hyfetch` (Thanks to [@catumin](https://github.com/catumin))
+* Debian and Ubuntu `apt install hyfetch` (for Debian flavor >= [Trixie](https://packages.debian.org/trixie/hyfetch), Ubuntu flavor >= [Noble](https://packages.ubuntu.com/noble/hyfetch)) (Thanks to [@catumin](https://github.com/catumin))
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/hyfetch.svg?columns=4&exclude_unsupported=1)](https://repology.org/project/hyfetch/versions)
 
-### Method 3: Install the latest developmental version using git
+### Method 3: Install using Cargo
 
-Install Python >= 3.7 first. Then run the following commands:
+Since hyfetch has been rewritten in Rust since 2.0.0, you can now install it using Cargo:
 
 ```sh
-git clone https://github.com/hykilpikonna/hyfetch.git
-cd hyfetch
-pip install .
+cargo install hyfetch
 ```
 
+> [!WARNING]
+> If you install using Cargo, you would need to manually install dependencies like fastfetch if you want to use it as the backend, and Git Bash if you're on Windows.
+>
+> The PyPI package has all the dependencies bundled, so it's recommended to use that instead.
 
 ## Usage
 
@@ -126,6 +129,72 @@ pip install git+https://github.com/hykilpikonna/hyfetch.git@master
 
 <!-- CHANGELOG STARTS HERE --->
 
+### 1.99.0
+
+This version would be the last version of HyFetch on Python as we migrate to Rust (Huge thanks to everyone on [#317](https://github.com/hykilpikonna/hyfetch/pull/317)!). It will also be an effort to start a transition that phases out the neowofetch/neofetch backend in favor of FastFetch, since the time needed to maintain the NF backend currently exceed our capacity. If you are willing to help maintaining it, please let us know!
+
+* 🌈 **Improve Windows support**
+* 🌈 **Include FastFetch into HyFetch PyPI package**
+* 🌈 Detached our fork from neofetch
+* 🌈 Build architecture-specific wheels for PyPI
+* 🌈 Add plural flag (bc8499e2)
+* 🌈 Add genderflux and girlflux flags ([#263](https://github.com/hykilpikonna/hyfetch/pull/263))
+* 🌈 Add Fraysexual flag ([#277](https://github.com/hykilpikonna/hyfetch/pull/277))
+* 🌈 Add Xenogender flag ([#309](https://github.com/hykilpikonna/hyfetch/pull/309))
+* 🌈 Add Caninekin flag ([#318](https://github.com/hykilpikonna/hyfetch/pull/318))
+* 🌈 Add Kenochoric, veldian, solian, lunian flags ([#331](https://github.com/hykilpikonna/hyfetch/pull/331))
+* 🌈 Add Polyamorous, sapphic, androgyne, interprogress, progress, intersex, equal-rights, drag, neofluid, genderqueer, and pronoun flags ([#342](https://github.com/hykilpikonna/hyfetch/pull/342))
+* 🌈 Add Gilbert Baker's original rainbow flag ([#284](https://github.com/hykilpikonna/hyfetch/pull/284)) 
+* 🌈 Add Queer subculture flags ([#302](https://github.com/hykilpikonna/hyfetch/pull/302)) 
+* 🌈 Add random flag option ([#334](https://github.com/hykilpikonna/hyfetch/pull/334))
+* 🌈 Fix distro logo triple-quotation mark escaping ([#222](https://github.com/hykilpikonna/hyfetch/pull/222))
+* 🌈 Fix Windows encoding issue on non-English systems ([#294](https://github.com/hykilpikonna/hyfetch/pull/294))
+* 🌈 Fix termux compatibility ([#286](https://github.com/hykilpikonna/hyfetch/pull/286))
+* 🌈 Fix term background detection not resetting properly ([#298](https://github.com/hykilpikonna/hyfetch/pull/298))
+* 🌈 Make typing-extensions optional ([#299](https://github.com/hykilpikonna/hyfetch/pull/299))
+* 🌈 Remove setuptools dependency ([#325](https://github.com/hykilpikonna/hyfetch/pull/325))
+* 🌈 Allow lightness value without a '%' sign in config prompt ([#307](https://github.com/hykilpikonna/hyfetch/pull/307))
+* 🌈 Fix Windows 7 and Python 3.7.0 support.
+* 🖼 OS - Update Apple hardware ID list ([#256](https://github.com/hykilpikonna/hyfetch/pull/256))
+* 🖼 OS - Remove Lilu detection for hackintosh ([#310](https://github.com/hykilpikonna/hyfetch/pull/310))
+* 🖼 OS - Support host info on PowerPC Macs ([#341](https://github.com/hykilpikonna/hyfetch/pull/341))
+* 🖼 DE - Show Kinfo for Plasma 6 ([#269](https://github.com/hykilpikonna/hyfetch/pull/269))
+* 🖼 GPU - Fix GPU not displaying in Haiku (dylanaraps#2448)
+* 🖼 GPU - List all intel GPU as detected ([#348](https://github.com/hykilpikonna/hyfetch/pull/348))
+* 🖼 Distro - Add eweOS ([#252](https://github.com/hykilpikonna/hyfetch/pull/252))
+* 🖼 Distro - Add Fedora Immutable distros (dylanaraps#2434)
+* 🖼 Distro - Add Macaroni OS (dylanaraps#2424)
+* 🖼 Distro - Add Ironclad OS ([#219](https://github.com/hykilpikonna/hyfetch/pull/219))
+* 🖼 Distro - Add Chimera Linux ([#285](https://github.com/hykilpikonna/hyfetch/pull/285))
+* 🖼 Distro - Add Tatra (dylanaraps#2439)
+* 🖼 Distro - Add Furreto Linux ([#290](https://github.com/hykilpikonna/hyfetch/pull/290))
+* 🖼 Distro - Add BlackMesa ([#316](https://github.com/hykilpikonna/hyfetch/pull/316))
+* 🖼 Distro - Add Magix ([#338](https://github.com/hykilpikonna/hyfetch/pull/338))
+* 🖼 Distro - Add Mauna ([#343](https://github.com/hykilpikonna/hyfetch/pull/343))
+* 🖼 Distro - Add Arkane Linux ([#321](https://github.com/hykilpikonna/hyfetch/pull/321))
+* 🖼 Distro - Add Linux From Scratch ([#336](https://github.com/hykilpikonna/hyfetch/pull/336))
+* 🖼 Distro - Fix debian version on Ubuntu ([#195](https://github.com/hykilpikonna/hyfetch/pull/195))
+* 🖼 Ascii - Update PikaOS logo ([#231](https://github.com/hykilpikonna/hyfetch/pull/231))
+* 🖼 Ascii - Add Fedora unicode logo ([#238](https://github.com/hykilpikonna/hyfetch/pull/238))
+* 🖼 Ascii - Fix colors not reverting properly ([#314](https://github.com/hykilpikonna/hyfetch/pull/314))
+* 🖼 Ascii - Fix AmogOS backslash escape ([#339](https://github.com/hykilpikonna/hyfetch/pull/339))
+* 🖼 Ascii - Add colorful NixOS logo ([#311](https://github.com/hykilpikonna/hyfetch/pull/311))
+* 🖼 Terminal - Fix terminal emulator selection ([#220](https://github.com/hykilpikonna/hyfetch/pull/220))
+* 🖼 Terminal - Fix terminal font info for yakuake ([#235](https://github.com/hykilpikonna/hyfetch/pull/235))
+* 🖼 Terminal - Add Apple Terminal ([#272](https://github.com/hykilpikonna/hyfetch/pull/272))
+* 🖼 Editor - Display neovim version ([#267](https://github.com/hykilpikonna/hyfetch/pull/267))
+* 🖼 Package - Add an option to hide some package managers ([#257](https://github.com/hykilpikonna/hyfetch/pull/257))
+* 🖼 Package - Add "AM" application manager ([#234](https://github.com/hykilpikonna/hyfetch/pull/234))
+* 🖼 Package - Fix npm list count mismatch ([#240](https://github.com/hykilpikonna/hyfetch/pull/240))
+* 🖼 Package - Add pnpm ([#288](https://github.com/hykilpikonna/hyfetch/pull/288))
+* 🖼 Package - Add pkgx.sh ([#265](https://github.com/hykilpikonna/hyfetch/pull/265))
+* 🖼 Package - Add pip, bonsai, rad, radula, birb ([#337](https://github.com/hykilpikonna/hyfetch/pull/337))
+* 🖼 Package - Add MacPorts for Linux support ([#340](https://github.com/hykilpikonna/hyfetch/pull/340))
+* 🖼 Package - Use XDG path for Nix package counting ([#255](https://github.com/hykilpikonna/hyfetch/pull/255))
+* 🖼 Package - Fix short package count ([#305](https://github.com/hykilpikonna/hyfetch/pull/305))
+* 🖼 Song - Add Cider player ([#245](https://github.com/hykilpikonna/hyfetch/pull/245))
+* 🖼 Network - Fix network speed detection on macOS ([#360](https://github.com/hykilpikonna/hyfetch/pull/360))
+
 ### 1.4.11
 
 * 🌈 Add ability to set backend args in hyfetch config file ([#181](https://github.com/hykilpikonna/hyfetch/pull/181))
@@ -133,7 +202,7 @@ pip install git+https://github.com/hykilpikonna/hyfetch.git@master
 * 🌈 Fix config file argument ([#177](https://github.com/hykilpikonna/hyfetch/pull/177))
 * 🌈 Support pipx installation ([#188](https://github.com/hykilpikonna/hyfetch/pull/188), [#192](https://github.com/hykilpikonna/hyfetch/pull/192))
 * 🌈 Create package for Debian, OpenSUSE, Homebrew, Gentoo, and lure.sh  
-  ([#184](https://github.com/hykilpikonna/hyfetch/pull/184), [#194](https://github.com/hykilpikonna/hyfetch/pull/194), [#207](https://github.com/hykilpikonna/hyfetch/pull/207), [#206](https://github.com/hykilpikonna/hyfetch/pull/206)) Huge thanks to @BKasin!
+  ([#184](https://github.com/hykilpikonna/hyfetch/pull/184), [#194](https://github.com/hykilpikonna/hyfetch/pull/194), [#207](https://github.com/hykilpikonna/hyfetch/pull/207), [#206](https://github.com/hykilpikonna/hyfetch/pull/206)) Huge thanks to @catumin!
 * 🖼 DE - Fix DE empty bracket in macOS ([#172](https://github.com/hykilpikonna/hyfetch/pull/172))
 * 🖼 OS - Disable Hackintosh check on arm64 processors ([dylanaraps#2396](https://github.com/dylanaraps/neofetch/pull/2396))
 * 🖼 OS - Add Windows NT ([#217](https://github.com/hykilpikonna/hyfetch/pull/217))

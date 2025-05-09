@@ -124,6 +124,10 @@ def detect(name: str) -> AsciiArt | None:
         from .arcolinux import arcolinux
         return arcolinux
     
+    if name.startswith('arkane'):
+        from .arkane import arkane
+        return arkane
+    
     if name == 'arch_small':
         from .arch_small import arch_small
         return arch_small
@@ -204,6 +208,10 @@ def detect(name: str) -> AsciiArt | None:
         from .bedrock import bedrock
         return bedrock
     
+    if name.startswith('biglinux_large'):
+        from .biglinux_large import biglinux_large
+        return biglinux_large
+    
     if name.startswith('biglinux'):
         from .biglinux import biglinux
         return biglinux
@@ -215,6 +223,10 @@ def detect(name: str) -> AsciiArt | None:
     if name.startswith('blackarch'):
         from .blackarch import blackarch
         return blackarch
+    
+    if name == 'blackmesa':
+        from .blackmesa import blackmesa
+        return blackmesa
     
     if name.startswith('blackpanther') or name.startswith('blackpanther'):
         from .blackpanther import blackpanther
@@ -528,6 +540,10 @@ def detect(name: str) -> AsciiArt | None:
         from .finnix import finnix
         return finnix
     
+    if name.startswith('furreto'):
+        from .furreto import furreto
+        return furreto
+    
     if name == 'freebsd_small':
         from .freebsd_small import freebsd_small
         return freebsd_small
@@ -724,6 +740,10 @@ def detect(name: str) -> AsciiArt | None:
         from .linux import linux
         return linux
     
+    if name == 'linuxfromscratch' or name.endswith('lfs') or name == 'linux-from-scratch' or name == 'linux_from_scratch':
+        from .linuxfromscratch import linuxfromscratch
+        return linuxfromscratch
+    
     if name == 'linux_small':
         from .linux_small import linux_small
         return linux_small
@@ -768,6 +788,10 @@ def detect(name: str) -> AsciiArt | None:
         from .mageia import mageia
         return mageia
     
+    if name.startswith('magix'):
+        from .magix import magix
+        return magix
+    
     if name.startswith('magpieos'):
         from .magpieos import magpieos
         return magpieos
@@ -803,6 +827,10 @@ def detect(name: str) -> AsciiArt | None:
     if name.startswith('maui'):
         from .maui import maui
         return maui
+    
+    if name.startswith('mauna'):
+        from .mauna import mauna
+        return mauna
     
     if name.startswith('meowix'):
         from .meowix import meowix
@@ -883,6 +911,10 @@ def detect(name: str) -> AsciiArt | None:
     if name.startswith('nixos_old'):
         from .nixos_old import nixos_old
         return nixos_old
+    
+    if name.startswith('nixos_colorful'):
+        from .nixos_colorful import nixos_colorful
+        return nixos_colorful
     
     if name.startswith('nixos'):
         from .nixos import nixos
